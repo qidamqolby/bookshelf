@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf Apps</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header class="header">
+        <h1>Bookshelf Apps</h1>
+    </header>
+    <main>
+        <section class="input-section">
+            <h2>Add New Book</h2>
+            <form class="input-book" id="input-book">
+                <div class="input">
+                    <label for="input-title">Book Title</label>
+                    <input type="text" id="input-title" required>
+                </div>
+                <div class="input">
+                    <label for="input-author">Book Author</label>
+                    <input type="text" id="input-author" required>
+                </div>
+                <div class="input">
+                    <label for="publish-year">Publish Year</label>
+                    <input type="number" id="input-year" required>
+                </div>
+                <div class="input-inline">
+                    <input type="checkbox" id="input-completed">
+                    <label for="input-completed">Complete reading</label>
+                </div>
+                <div class="input-action">
+                    <button class="btn btn-primary" id="submit-btn" type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="main-section">
+            <div class="search-section">
+                <h2>Search Book</h2>
+                <form class="search-book" id="search-book">
+                    <input type="text" id="search-title" placeholder="Search book title ...">
+                    <button class="btn btn-primary" type="submit" id="submit-search">Search</button>
+                </form>
+            </div>
+            <div class="bookshelf">
+                <div class="bookshelf-content">
+                    <h2>Incomplete Book List</h2>
+                    <div class="booklist" id="incomplete-booklist">
+                    </div>
+                </div>
+                <div class="bookshelf-content">
+                    <h2>Complete Book List</h2>
+                    <div class="booklist" id="complete-booklist">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="main.js"></script>
+</body>
+
+</html>

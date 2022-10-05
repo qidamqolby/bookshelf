@@ -1,0 +1,239 @@
+/* intial setup */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    scroll-behavior: smooth;
+}
+
+h1,
+h2 {
+    color: #fff;
+}
+
+input,
+button {
+    font-family: inherit;
+    border: none;
+    outline: none;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 0.6rem;
+}
+
+label {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: lightblue;
+    transition: all 300ms ease-in-out;
+}
+
+.btn-primary:hover {
+    background: seagreen;
+}
+
+.btn-delete {
+    background: red;
+}
+
+.btn-delete:hover {
+    background: darkred;
+}
+
+/* header */
+.header {
+    background: lightseagreen;
+    padding: 0.5rem;
+}
+
+.header h1 {
+    text-align: center;
+    font-size: 2.25rem;
+}
+
+/* input section */
+main {
+    width: 100%;
+    max-width: 1000px;
+    margin: 2rem auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.input-section {
+    background: lightseagreen;
+    padding: 1rem;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.input-book {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.input-book .input {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-book .input-inline {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+/* main content */
+.main-section {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-section .search-section {
+    background: lightseagreen;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-section .search-book {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+}
+
+.search-book input {
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-section .search-result {
+    background: #fff;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.bookshelf {
+    width: 100%;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.bookshelf-content {
+    background: lightseagreen;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.bookshelf-content h2 {
+    font-size: 1.25rem;
+}
+
+.bookshelf-content .booklist {
+    width: 100%;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.booklist .book-item {
+    background: #fff;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+/* responsive design */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .input-section {
+        margin: 0 auto;
+    }
+
+    .main-section {
+        width: 400px;
+        margin: 2rem auto;
+    }
+
+    .main-section .search-section {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .bookshelf {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .input-section,
+    .main-section {
+        width: 90%;
+    }
+}
