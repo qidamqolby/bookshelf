@@ -1,4 +1,4 @@
-# Dicoding Submission Belajar Membuat Front-End Web untuk Pemula
+# Bookshelf Apps
 
 This project created for submission on <a href="https://www.dicoding.com/">Dicoding</a> course "Belajar Membuat Front-End Web untuk Pemula"
 
