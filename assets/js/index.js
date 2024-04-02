@@ -1,27 +1,27 @@
 // define variables
 const bookshelf = [];
-const RENDER_EVENT = "render-book";
-const SAVED_EVENT = "saved-book";
-const STORAGE_KEY = "bookshelf-apps";
+const RENDER_EVENT = 'render-book';
+const SAVED_EVENT = 'saved-book';
+const STORAGE_KEY = 'bookshelf-apps';
 
-const inputForm = document.getElementById("input-book");
-const inputTitle = document.getElementById("input-title");
-const inputAuthor = document.getElementById("input-author");
-const inputYear = document.getElementById("input-year");
-const inputCompleted = document.getElementById("input-completed");
-const searchForm = document.getElementById("search-book");
-const searchTitle = document.getElementById("search-title");
+const inputForm = document.getElementById('input-book');
+const inputTitle = document.getElementById('input-title');
+const inputAuthor = document.getElementById('input-author');
+const inputYear = document.getElementById('input-year');
+const inputCompleted = document.getElementById('input-completed');
+const searchForm = document.getElementById('search-book');
+const searchTitle = document.getElementById('search-title');
 
 // main function
-document.addEventListener("DOMContentLoaded", function () {
-    inputForm.addEventListener("submit", function (event) {
+document.addEventListener('DOMContentLoaded', function () {
+    inputForm.addEventListener('submit', function (event) {
         event.preventDefault();
         addBook();
-        alert("Bookshelf has been updated");
+        modalAlert('Bookshelf has been updated');
         inputForm.reset();
     });
 
-    searchForm.addEventListener("submit", function (event) {
+    searchForm.addEventListener('submit', function (event) {
         event.preventDefault();
         searchBook();
     });
@@ -49,22 +49,22 @@ function addBook() {
 // search book
 function searchBook() {
     const searchTarget = findBookTitle(searchTitle.value);
-    const showBook = document.getElementsByClassName("book-item");
+    const showBook = document.getElementsByClassName('book-item');
 
     for (const index in showBook) {
         if (searchTarget !== parseInt(showBook[index].id)) {
-            showBook[index].style.display = "none";
+            showBook[index].style.display = 'none';
         }
     }
 }
 
 // displaying bookshelf
 document.addEventListener(RENDER_EVENT, function () {
-    const incompletedList = document.getElementById("incomplete-booklist");
-    const completedList = document.getElementById("complete-booklist");
+    const incompletedList = document.getElementById('incomplete-booklist');
+    const completedList = document.getElementById('complete-booklist');
 
-    incompletedList.innerHTML = "";
-    completedList.innerHTML = "";
+    incompletedList.innerHTML = '';
+    completedList.innerHTML = '';
 
     for (const book of bookshelf) {
         const bookElement = booklist(book);
@@ -79,9 +79,9 @@ document.addEventListener(RENDER_EVENT, function () {
 function booklist(book) {
     const { id, bookTitle, bookAuthor, bookYear, isCompleted } = book;
 
-    const bookArticle = document.createElement("article");
-    bookArticle.classList.add("book-item");
-    bookArticle.setAttribute("id", `${id}`);
+    const bookArticle = document.createElement('article');
+    bookArticle.classList.add('book-item');
+    bookArticle.setAttribute('id', `${id}`);
     bookArticle.innerHTML = `
     <div class="book-content">
         <h3>${bookTitle}</h3>
@@ -90,30 +90,30 @@ function booklist(book) {
     </div>
     `;
 
-    const bookAction = document.createElement("div");
-    bookAction.classList.add("action");
+    const bookAction = document.createElement('div');
+    bookAction.classList.add('action');
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("btn", "btn-delete");
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('btn', 'btn-delete');
     deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
-    deleteBtn.addEventListener("click", function () {
+    deleteBtn.addEventListener('click', function () {
         deleteBook(id);
     });
 
     if (isCompleted) {
-        const undoBtn = document.createElement("button");
-        undoBtn.classList.add("btn", "btn-primary");
+        const undoBtn = document.createElement('button');
+        undoBtn.classList.add('btn', 'btn-primary');
         undoBtn.innerHTML = `<i class="fas fa-rotate-left"></i>`;
-        undoBtn.addEventListener("click", function () {
+        undoBtn.addEventListener('click', function () {
             undoBook(id);
         });
 
         bookAction.append(undoBtn, deleteBtn);
     } else {
-        const checkBtn = document.createElement("button");
-        checkBtn.classList.add("btn", "btn-primary");
+        const checkBtn = document.createElement('button');
+        checkBtn.classList.add('btn', 'btn-primary');
         checkBtn.innerHTML = `<i class="fas fa-check"></i>`;
-        checkBtn.addEventListener("click", function () {
+        checkBtn.addEventListener('click', function () {
             checkBook(id);
         });
 
@@ -133,12 +133,14 @@ function checkBook(bookId) {
         return;
     }
 
-    if (confirm("have you finished reading?") === true) {
-        bookTarget.isCompleted = true;
-        document.dispatchEvent(new Event(RENDER_EVENT));
-        saveData();
-        window.location.reload();
-    }
+    modalConfirm('Have you finished reading?').then((confirmed) => {
+        if (confirmed) {
+            bookTarget.isCompleted = true;
+            document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
+            window.location.reload();
+        }
+    });
 }
 
 function undoBook(bookId) {
@@ -148,12 +150,14 @@ function undoBook(bookId) {
         return;
     }
 
-    if (confirm("do you want to read this book again?") === true) {
-        bookTarget.isCompleted = false;
-        document.dispatchEvent(new Event(RENDER_EVENT));
-        saveData();
-        window.location.reload();
-    }
+    modalConfirm('Do you want to read this book again?').then((confirmed) => {
+        if (confirmed) {
+            bookTarget.isCompleted = false;
+            document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
+            window.location.reload();
+        }
+    });
 }
 
 function deleteBook(bookId) {
@@ -163,18 +167,20 @@ function deleteBook(bookId) {
         return;
     }
 
-    if (confirm("do you want to delete this book?") === true) {
-        bookshelf.splice(bookTarget, 1);
-        document.dispatchEvent(new Event(RENDER_EVENT));
-        saveData();
-        window.location.reload();
-    }
+    modalConfirm('Do you want to delete this book?').then((confirmed) => {
+        if (confirmed) {
+            bookshelf.splice(bookTarget, 1);
+            document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
+            window.location.reload();
+        }
+    });
 }
 
 // local storage
 function isStorageExist() {
     if (typeof Storage === undefined) {
-        alert("Your browser don't support this apps");
+        modalAlert("Your browser don't support this apps");
         return false;
     }
     return true;
@@ -231,4 +237,60 @@ function findBookTitle(str) {
         }
     }
     return null;
+}
+
+function modalConfirm(text) {
+    return new Promise((resolve) => {
+        const modalHtml = `
+            <div class="modal">
+                <div class="modal-content">
+                    <p>${text}</p>
+                    <button id="confirmBtn" class="btn btn-primary">Confirm</button>
+                    <button id="cancelBtn" class="btn btn-delete">Cancel</button>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        const modal = document.querySelector('.modal');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        confirmBtn.addEventListener('click', () => {
+            modal.remove();
+            resolve(true);
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.remove();
+            resolve(false);
+        });
+    });
+}
+
+function modalAlert(text) {
+    return new Promise((resolve) => {
+        const modalHtml = `
+            <div class="modal">
+                <div class="modal-content">
+                    <p>${text}</p>
+                    <button id="confirmBtn" class="btn btn-primary">Close</button>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        const modal = document.querySelector('.modal');
+        const confirmBtn = document.getElementById('confirmBtn');
+
+        confirmBtn.addEventListener('click', () => {
+            modal.remove();
+            resolve(true);
+        });
+
+        setTimeout(() => {
+            modal.remove();
+            resolve(true);
+        }, 3000);
+    });
 }
